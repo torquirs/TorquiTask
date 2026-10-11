@@ -1,5 +1,5 @@
 
-import { StatusCategory } from "@/generated/prism/enums";
+import { StatusCategory } from "@/generated/prisma";
 import { TokenColor } from "./token-colors";
 
 
