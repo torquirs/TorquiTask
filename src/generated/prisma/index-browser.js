@@ -177,9 +177,218 @@ exports.Prisma.TwoFactorScalarFieldEnum = {
   lockedUntil: 'lockedUntil'
 };
 
+exports.Prisma.OrganizationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  logo: 'logo',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrganizationWebhookScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  url: 'url',
+  secret: 'secret',
+  enabled: 'enabled',
+  lastStatus: 'lastStatus',
+  lastAttemptAt: 'lastAttemptAt',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MemberScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.InvitationScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  email: 'email',
+  role: 'role',
+  status: 'status',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  inviterId: 'inviterId'
+};
+
+exports.Prisma.EntitlementScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  plan: 'plan',
+  maxProjects: 'maxProjects',
+  maxTasks: 'maxTasks',
+  maxMembers: 'maxMembers',
+  maxStorageBytes: 'maxStorageBytes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ActivityEventScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  actorId: 'actorId',
+  projectId: 'projectId',
+  type: 'type',
+  payload: 'payload',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ProjectScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  description: 'description',
+  color: 'color',
+  icon: 'icon',
+  visibility: 'visibility',
+  ownerId: 'ownerId',
+  archivedAt: 'archivedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProjectMemberScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  memberId: 'memberId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TaskScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  title: 'title',
+  description: 'description',
+  descriptionText: 'descriptionText',
+  statusId: 'statusId',
+  parentId: 'parentId',
+  priority: 'priority',
+  rank: 'rank',
+  startDate: 'startDate',
+  dueDate: 'dueDate',
+  assigneeId: 'assigneeId',
+  completedAt: 'completedAt',
+  archivedAt: 'archivedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WorkflowStatusScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  name: 'name',
+  color: 'color',
+  position: 'position',
+  category: 'category',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LabelScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TaskLabelScalarFieldEnum = {
+  taskId: 'taskId',
+  labelId: 'labelId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  taskId: 'taskId',
+  authorId: 'authorId',
+  body: 'body',
+  bodyText: 'bodyText',
+  editedAt: 'editedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  userId: 'userId',
+  actorId: 'actorId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  taskId: 'taskId',
+  commentId: 'commentId',
+  dedupeKey: 'dedupeKey',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NotificationPreferenceScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  userId: 'userId',
+  emailOnAssignment: 'emailOnAssignment',
+  emailOnMention: 'emailOnMention',
+  emailOnComment: 'emailOnComment',
+  emailOnDueDate: 'emailOnDueDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AttachmentScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  taskId: 'taskId',
+  uploaderId: 'uploaderId',
+  objectKey: 'objectKey',
+  fileName: 'fileName',
+  contentType: 'contentType',
+  size: 'size',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  polarSubscriptionId: 'polarSubscriptionId',
+  polarCustomerId: 'polarCustomerId',
+  productId: 'productId',
+  status: 'status',
+  currentPeriodEnd: 'currentPeriodEnd',
+  cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WebhookEventScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  type: 'type',
+  receivedAt: 'receivedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -192,13 +401,73 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.Plan = exports.$Enums.Plan = {
+  FREE: 'FREE',
+  PRO: 'PRO',
+  ENTERPRISE: 'ENTERPRISE',
+  SELF_HOSTED: 'SELF_HOSTED'
+};
+
+exports.ProjectVisibility = exports.$Enums.ProjectVisibility = {
+  OPEN: 'OPEN',
+  RESTRICTED: 'RESTRICTED'
+};
+
+exports.TaskPriority = exports.$Enums.TaskPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  CRITICAL: 'CRITICAL'
+};
+
+exports.StatusCategory = exports.$Enums.StatusCategory = {
+  TODO: 'TODO',
+  ACTIVE: 'ACTIVE',
+  DONE: 'DONE'
+};
+
+exports.NotificationType = exports.$Enums.NotificationType = {
+  TASK_ASSIGNED: 'TASK_ASSIGNED',
+  MENTION: 'MENTION',
+  COMMENT: 'COMMENT',
+  DUE_SOON: 'DUE_SOON'
+};
+
+exports.AttachmentStatus = exports.$Enums.AttachmentStatus = {
+  PENDING: 'PENDING',
+  READY: 'READY',
+  DELETED: 'DELETED'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  TwoFactor: 'TwoFactor'
+  TwoFactor: 'TwoFactor',
+  Organization: 'Organization',
+  OrganizationWebhook: 'OrganizationWebhook',
+  Member: 'Member',
+  Invitation: 'Invitation',
+  Entitlement: 'Entitlement',
+  ActivityEvent: 'ActivityEvent',
+  Project: 'Project',
+  ProjectMember: 'ProjectMember',
+  Task: 'Task',
+  WorkflowStatus: 'WorkflowStatus',
+  Label: 'Label',
+  TaskLabel: 'TaskLabel',
+  Comment: 'Comment',
+  Notification: 'Notification',
+  NotificationPreference: 'NotificationPreference',
+  Attachment: 'Attachment',
+  Subscription: 'Subscription',
+  WebhookEvent: 'WebhookEvent'
 };
 
 /**
