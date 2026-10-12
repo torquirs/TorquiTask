@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter} from 'next/router'
+import { useRouter } from 'next/navigation'
 import { Controller, useForm } from "react-hook-form"
 import React from 'react'
 import { SignInFormData, signInschema, SignUpFormData, SignUpSchema } from '@/lib/validations/auth';

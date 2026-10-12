@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter} from 'next/router'
+import { useRouter } from 'next/navigation'
 import { Controller, useForm } from "react-hook-form"
 import React from 'react'
 import { SignInFormData, signInschema } from '@/lib/validations/auth';
@@ -27,7 +27,7 @@ const SignInForm = () => {
     const handleSubmit = async (data: SignInFormData) => {
         await authClient.signIn.email(data, {
             onSuccess: () => {
-                router.push("/dadshboard")
+                router.push("/dashboard")
             },
             onError: (error) => {
                 toast.error(error.error.message || 
