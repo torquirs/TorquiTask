@@ -1,3 +1,4 @@
+import { ProjectVisibility } from "@/generated/prisma";
 import type { Session } from "better-auth";
 import { organization } from "better-auth/plugins";
 import z from "zod";
@@ -77,3 +78,22 @@ export function slugify(value: string): string {
     .slice(0, 48)
   );
 }
+
+export type ProjectContext = OrgContext & {
+  project: {
+    id: string;
+    visibility: ProjectVisibility;
+    archivedAt: Date | null;
+  }
+}
+
+export type TaskContex = ProjectContext & {
+  task: {
+    id: string;
+    projectId: string;
+    statusId: string;
+    parentId: string | null;
+    rank: string;
+  };
+};
+
