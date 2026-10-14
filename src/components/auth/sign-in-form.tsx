@@ -6,7 +6,7 @@ import React from 'react'
 import { SignInFormData, signInschema } from '@/lib/validations/auth';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Field, FieldError, FieldLabel } from '../ui/field';
-import { Input } from '@base-ui/react';
+import { Input } from "@/components/ui/input"
 import { Button } from '../ui/button';
 import  Link from 'next/link'; 
 import { authClient } from '@/lib/auth-client';

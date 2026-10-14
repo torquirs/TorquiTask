@@ -6,7 +6,7 @@ import React from 'react'
 import { SignInFormData, signInschema, SignUpFormData, SignUpSchema } from '@/lib/validations/auth';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Field, FieldError, FieldLabel } from '../ui/field';
-import { Input } from '@base-ui/react';
+import { Input } from "@/components/ui/input"
 import { Button } from '../ui/button';
 import  Link from 'next/link'; 
 import { authClient } from '@/lib/auth-client';
@@ -143,7 +143,7 @@ const SignUpForm = () => {
         <div className="mt-4 text-sm text-muted-foreground">
             Already have an account?{" "}
             <Link 
-            href="/sign-up"
+            href="/sign-in"
             className="font-medium text-primary hover:underline"
                         >
                 Sign in
