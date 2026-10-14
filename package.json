@@ -10,7 +10,7 @@
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:pull": "pisma db pull",
-    "db:reset": "prisma wigrate reeset",
+    "db:reset": "prisma migrate reeset",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate"

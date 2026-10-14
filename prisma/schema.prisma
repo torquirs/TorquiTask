@@ -42,6 +42,8 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  activeOrganizationId String?
+
   @@unique([token])
   @@index([userId])
   @@map("session")
@@ -93,7 +95,6 @@ model TwoFactor {
   @@index([userId])
   @@map("twoFactor")
 }
-
 
 model Organization {
   id        String   @id @default(cuid())
@@ -150,7 +151,6 @@ model OrganizationWebhook {
 
   @@map("organization_webhook")
 }
-
 
 model Member {
   id             String       @id
@@ -244,14 +244,12 @@ model ActivityEvent {
   @@map("activity_event")
 }
 
-
 enum ProjectVisibility {
   OPEN
   RESTRICTED
 
   @@map("project_visibility")
 }
-
 
 enum StatusCategory {
   TODO
@@ -433,7 +431,6 @@ model Task {
   @@map("task")
 }
 
-
 model WorkflowStatus {
   id String @id @default(uuid(7))
 
@@ -503,8 +500,6 @@ model TaskLabel {
   @@index([labelId])
   @@map("task_label")
 }
-
-
 
 model Comment {
   id String @id @default(uuid(7))
@@ -674,8 +669,6 @@ model NotificationPreference {
   @@index([userId])
   @@map("notification_preference")
 }
-
-
 
 enum AttachmentStatus {
   PENDING

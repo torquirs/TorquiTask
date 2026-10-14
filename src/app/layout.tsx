@@ -8,6 +8,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import Script from "next/script";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -34,6 +35,28 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(() => {
+            const root = document.documentElement;
+            let theme;
+            try {
+              const savedTheme = localStorage.getItem("theme") || "system";
+              theme =
+                savedTheme === "dark" ||
+                (savedTheme === "system" &&
+                  window.matchMedia("(prefers-color-scheme: dark)").matches)
+                  ? "dark"
+                  : "light";
+            } catch {
+              theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+            }
+            root.classList.remove("light", "dark");
+            root.classList.add(theme);
+            root.style.colorScheme = theme;
+          })();`}
+        </Script>
         <ThemeProvider
             attribute="class"
             defaultTheme="system"
