@@ -1,4 +1,5 @@
-import { auth, Session } from '@/lib/auth';
+import { auth } from '@/lib/auth';
+import type { Session } from '@/lib/auth';
 import { resolveOrgContext, resolveProjectContext, resolveTaskContext } from '@/lib/authz';
 import { hasPermission, PermissionRequest } from '@/lib/permissions';
 import { initTRPC, TRPCError } from '@trpc/server';
@@ -8,12 +9,19 @@ import SuperJSON from 'superjson';
 import z from 'zod';
  
 
-export type TRPCContext = {session: Session| null}
+export type TRPCContext = {
+  session: Session["session"] | null;
+  user: Session["user"] | null;
+}
 
-export const createTRPCContext = cache(async (): Promise<TRPCContext>=> {
-  const session = await auth.api.getSession({headers: await headers()})
+export const createTRPCContext = cache(async (options?: { req?: Request }): Promise<TRPCContext>=> {
+  const requestHeaders = options?.req?.headers ?? await headers();
+  const authSession = await auth.api.getSession({ headers: requestHeaders });
 
-  return { session: session ?? null };
+  return {
+    session: authSession?.session ?? null,
+    user: authSession?.user ?? null,
+  };
 });
  
 
@@ -30,7 +38,7 @@ export const createCallerFactory = t.createCallerFactory;
 export const baseProcedure = t.procedure;
 
 export const protectedProcedure = baseProcedure.use(({ctx, next}) => {
-  if (!ctx.session) {
+  if (!ctx.session || !ctx.user) {
     throw new TRPCError({
       code: "FORBIDDEN",
       message: "You must be signed in to access this resoureces",
@@ -38,12 +46,17 @@ export const protectedProcedure = baseProcedure.use(({ctx, next}) => {
   }
 
   return next ({
-    ctx: {...ctx, session: ctx.session, userId: ctx.session.user.id},
+    ctx: {
+      ...ctx,
+      session: ctx.session,
+      user: ctx.user,
+      userId: ctx.user.id,
+    },
   });
 });
 
 export const orgProcedure = protectedProcedure.use(async ({ ctx, next }) => {
-  const org = await resolveOrgContext({ ...ctx, session: ctx.session.session });
+  const org = await resolveOrgContext(ctx);
 
   return next({
     ctx: { ...ctx, ...org }

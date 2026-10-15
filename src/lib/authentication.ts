@@ -48,6 +48,7 @@ export const requireActiveOrganization = cache(
 
         const protectedCtx = {
     session: session.session,
+    user: session.user,
     userId: session.user.id,
 };
 

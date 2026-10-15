@@ -23,15 +23,7 @@ export const AuthzCause = {
 export async function resolveOrgContext(
   ctx: ProtectedContext,
 ): Promise<OrgContext> {
-  const session = ctx.session as typeof ctx.session & {
-    activeOrganizationId?: string | null;
-    session?: {
-      activeOrganizationId?: string | null;
-    } | null;
-  };
-
-  const organizationId =
-    session.activeOrganizationId ?? session.session?.activeOrganizationId ?? null;
+  const organizationId = ctx.session.activeOrganizationId ?? null;
 
   if (!organizationId) {
     throw new TRPCError({
