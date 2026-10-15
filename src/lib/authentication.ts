@@ -5,6 +5,7 @@ import { auth } from "./auth";
 import { notFound, redirect } from "next/navigation";
 import { OrgContext } from "./validations/auth";
 import * as organizationService from  "@/server/services/organization";
+import { resolveOrgContext } from "./authz";
 import { cache } from "react";
 
 
@@ -74,14 +75,7 @@ export const requireActiveOrganization = cache(
                 user: session.user,
                 session,
                 organization: organisation,
-                ctx: await resolverOrgContext(protectedCtx)
+                ctx: await resolveOrgContext(protectedCtx)
             }
     },
 );
-
-function resolverOrgContext(protectedCtx: { session: { id: string; createdAt: Date; updatedAt: Date; userId: string; expiresAt: Date; token: string; ipAddress?: string | null | undefined | undefined; userAgent?: string | null | undefined | undefined; activeOrganizationId?: string | null | undefined; }; userId: string; }): OrgContext | PromiseLike<OrgContext> {
-    return {
-        ...protectedCtx,
-        organizationId: protectedCtx.session.activeOrganizationId ?? undefined,
-    } as unknown as OrgContext;
-}

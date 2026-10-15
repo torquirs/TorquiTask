@@ -32,7 +32,7 @@ export const projectRouter = createTRPCRouter({
 
   create: permittedProcedure({ project: ["create"] })
     .input(createProjectInput)
-    .mutation(({ ctx, input }) => projectService.create(ctx, input)),
+    .mutation(({ ctx, input }) =>  projectService.create(ctx, input)),
 
   update: permittedProcedure({ project: ["update"] })
     .input(updateProjectInput)

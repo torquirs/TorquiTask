@@ -114,7 +114,7 @@ export type CreateProjectInput = {
 export async function create(ctx: OrgContext, input: CreateProjectInput) {
   //   TODO: later;
   //   await entitlementService.assertWithin(ctx, "project");
-
+console.log(input);
   const project = await db.$transaction(async (tx) => {
     const created = await tx.project.create({
       data: {
