@@ -1,9 +1,13 @@
-import { z } from 'zod';
+
 import { createTRPCRouter } from '../init';
 import { projectRouter } from './project.router';
+import { taskRouter } from './task-router';
+import { workflowStatusRouter } from './workflow.router';
  
 export const appRouter = createTRPCRouter({
   project: projectRouter,
+  task: taskRouter,
+  workflow: workflowStatusRouter,
 
 });
  
