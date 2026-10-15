@@ -1,5 +1,5 @@
 import { ProjectVisibility } from "@/generated/prisma";
-import type { Session } from "better-auth";
+import type { Session as AuthSession } from "@/lib/auth";
 import { organization } from "better-auth/plugins";
 import z from "zod";
 
@@ -50,7 +50,8 @@ export type SignUpFormData = z.infer<typeof SignUpSchema>;
 export type OnboardingFormData = z.infer<typeof onboardingSchema>;
 
 export type ProtectedContext = {
-  session: Session;
+  session: AuthSession["session"];
+  user: AuthSession["user"];
   userId: string;
 };
 

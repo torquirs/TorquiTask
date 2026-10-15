@@ -22,6 +22,7 @@ async function OrganizationLayoutContent({
   const organizations = await organizationService.listForUser({
    
     session: session.session, 
+    user: session.user,
     userId: session.user.id,
   });
 

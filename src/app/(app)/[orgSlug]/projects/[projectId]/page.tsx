@@ -12,6 +12,8 @@ import { SettingsIcon } from "lucide-react";
 import { ProjectGlyph } from "@/components/project/project-client";
 import { Button } from "@/components/ui/button";
 import { TRPCError } from "@trpc/server";
+import { CreateTaskDialog } from "@/components/project/task/task-form";
+import { loadTaskViewState, listViewInput } from "@/lib/task-view-state";
 
 
 const ProjectDetailsContent = async ({
@@ -22,6 +24,7 @@ const ProjectDetailsContent = async ({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) => {
   const { orgSlug, projectId } = await params;
+  const viewState = await loadTaskViewState(await searchParams);
 
   const { organization, ctx } = await requireActiveOrganization(
     orgSlug,
@@ -39,8 +42,12 @@ const ProjectDetailsContent = async ({
 
   if (!project) notFound();
 
+  prefetch(trpc.workflow.list.queryOptions({ projectId }));
   prefetch(
-    trpc.task.list.infiniteQueryOptions({}, { getNextPageParam: nextCursor }),
+    trpc.task.list.infiniteQueryOptions(
+      listViewInput(projectId, viewState, { sort: "dueDate", order: "asc" }),
+      { getNextPageParam: nextCursor },
+    ),
   );
 
   return (

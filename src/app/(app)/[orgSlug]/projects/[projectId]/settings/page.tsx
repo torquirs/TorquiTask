@@ -10,13 +10,17 @@ import { ProjectSettingsForm } from "@/components/project/project-settings-form"
 import { ProjectWorkspace } from "@/components/project/prohect-worksapce";
 import { nextCursor } from "@/lib/task-queries";
 import { TRPCError } from "@trpc/server";
+import { loadTaskViewState, listViewInput } from "@/lib/task-view-state";
 
 const ProjectSettingsContent = async ({
   params,
+  searchParams,
 }: {
   params: Promise<{ orgSlug: string; projectId: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) => {
   const { orgSlug, projectId } = await params;
+  const viewState = await loadTaskViewState(await searchParams);
   const { organization, ctx } = await requireActiveOrganization(
     orgSlug,
     `/${orgSlug}/projects/${projectId}/settings`,
@@ -32,9 +36,12 @@ const ProjectSettingsContent = async ({
 
   if (!project) notFound();
 
+  prefetch(trpc.workflow.list.queryOptions({ projectId }));
   prefetch(
-    trpc.task.list.infiniteQueryOptions({}, { getNextPageParam: nextCursor }),
-
+    trpc.task.list.infiniteQueryOptions(
+      listViewInput(projectId, viewState, { sort: "dueDate", order: "asc" }),
+      { getNextPageParam: nextCursor },
+    ),
   );
 
   return (
@@ -73,12 +80,14 @@ const ProjectSettingsContent = async ({
 
 export default function ProjectSettings({
   params,
+  searchParams,
 }: {
   params: Promise<{ orgSlug: string; projectId: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   return (
     <Suspense fallback={<div role="status">Loading project settings...</div>}>
-      <ProjectSettingsContent params={params} />
+      <ProjectSettingsContent params={params} searchParams={searchParams} />
     </Suspense>
   );
 }

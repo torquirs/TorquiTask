@@ -8,6 +8,7 @@ const DashboardPage = async () => {
 
   const organizations = await organizationServices.listForUser({
     session: session.session,
+    user: session.user,
     userId: session.user.id,
   });
 
